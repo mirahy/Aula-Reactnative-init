@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const CarroItem = () => (
+const CarroItem = props => (
   <View style={styles.container}>
     <Image
       style={styles.foto}
-      source={require('../assets/fotoPerfilGen.jpg')}
+      source={props.foto}
     />
     <Text numberOfLines={1} style={styles.titulo}>
-      CarroItemCarroItemCarroItemCarroItemCarroItemCarroItemCarroItem
+      {props.titulo}
     </Text>
   </View>
 );
