@@ -1,34 +1,19 @@
-import React from 'react';
-import {Text, View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import CarroItem from './components/CarroItem';
-import carrosDb from './CarrosDb'
+import HomeScreen from './Home';
+import CarroDetalheScreen from './CarroDetalhe';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-  },
-});
+const Stack = createNativeStackNavigator();
 
-const App = () => {
-  /* let carrosJsx = [
-        <CarroItem titulo={carroDB[0].modelo + "/ " + carroDB[0].ano}     foto={carroDB[0].foto}/>,
-  ] */
-
-  let carrosJsx = []
-  for (let key in carrosDb) {
-    let carroDb = carrosDb[key]
-    carrosJsx.push(<CarroItem titulo={carroDb.modelo + "/ " + carroDb.ano}     foto={carroDb.foto}/>)
-  }
-  
-    return(
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {carrosJsx}
-      </ScrollView>
-    </SafeAreaView>
-  )
-};
-
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="CarroDetalhe" component={CarroDetalheScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}

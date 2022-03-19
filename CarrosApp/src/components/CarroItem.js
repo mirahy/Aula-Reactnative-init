@@ -26,10 +26,7 @@ const styles = StyleSheet.create({
 
 const CarroItem = props => (
   <View style={styles.container}>
-    <Image
-      style={styles.foto}
-      source={props.foto}
-    />
+    <Image style={styles.foto} source={props.foto} />
     <Text numberOfLines={1} style={styles.titulo}>
       {props.titulo}
     </Text>
