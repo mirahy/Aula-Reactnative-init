@@ -63,7 +63,9 @@ const App = props => {
         dataFiltrado.push(data[key])
       }
     }
-  }
+  } 
+
+  //
 
   const jsxLista = () => {
 
