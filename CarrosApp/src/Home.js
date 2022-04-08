@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   TextInput,
   View,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CarroItem from './CarroItem';
 import CarrosDb from './CarrosDb';
@@ -13,7 +14,7 @@ import CarrosDb from './CarrosDb';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#DDDDDD',
-    padding: 5,
+    padding: 5
   },
 });
 
@@ -39,11 +40,25 @@ const App = props => {
   };
 
   const jsxCarros = () => (
-    <View>
-      <TextInput value={q} onChangeText={setQ} />
-      <ScrollView style={styles.container}>{jsxLista()}</ScrollView>
-    </View>
+    <SafeAreaView>
+         <TextInput value={q} onChangeText={setQ} />
+      {/* <ScrollView style={styles.container}>{jsxLista()}</ScrollView> */}
+      <FlatList
+        data={dataFiltrado}
+        renderItem={Item}
+      /> 
+    </SafeAreaView>
   );
+
+  const Item = propsItem =>{
+    return(<CarroItem
+      style={styles.container}
+      foto={propsItem.item.foto}
+      titulo={propsItem.item.modelo + '/' + propsItem.item.ano}
+      onPress={abrirDetalhe}
+      key={propsItem.index}
+    />)
+  }
 
   const jsxLoading = () => (
     <View>
@@ -67,7 +82,7 @@ const App = props => {
 
   //
 
-  const jsxLista = () => {
+  /* const jsxLista = () => {
 
     let tmp = [];
     for (let key in dataFiltrado) {
@@ -81,7 +96,7 @@ const App = props => {
         />)
     }
     return tmp;
-  }
+  } */
 
   return loading ? jsxLoading() : jsxCarros();
 };

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    margin: 5
+    margin: 5,
   },
   foto: {
     height: alt,
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   titulo: {
     lineHeight: alt,
     marginLeft: 10,
-    flex: 1
+    flex: 1,
+    color:'black'
   }
 })
 
