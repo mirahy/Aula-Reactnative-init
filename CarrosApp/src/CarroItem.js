@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    margin: 5
+    margin: 5,
   },
   foto: {
     height: alt,
@@ -27,13 +27,15 @@ const styles = StyleSheet.create({
   titulo: {
     lineHeight: alt,
     marginLeft: 10,
-    flex: 1
+    flex: 1,
+    color: 'black'
   }
 })
 
 const CarroItem = props => (
+  
   <TouchableHighlight
-    onPress={() => props.onPress(props.titulo)}>
+    onPress={() => props.onPress(props.id)}>
   <View style={styles.container}>
     <Image
       style={styles.foto}
@@ -42,7 +44,7 @@ const CarroItem = props => (
     <Text
       style={styles.titulo}
       numberOfLines={1}
-    >{props.titulo}</Text>
+    >{props.titulo} </Text>
   </View>
   </TouchableHighlight>
 )

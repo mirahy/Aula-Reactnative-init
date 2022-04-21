@@ -5,16 +5,26 @@ import {
   TextInput,
   View,
   ActivityIndicator,
+  FlatList,
+  Text,
 } from 'react-native';
 
 import CarroItem from './CarroItem';
-import CarrosDb from './CarrosDb';
+import { pegarCarros } from './services/CarrosServices';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#DDDDDD',
     padding: 5,
+    
   },
+  TextInput:
+  {
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    color: 'black'
+  }
 });
 
 const App = props => {
@@ -27,9 +37,7 @@ const App = props => {
   });
 
   const carregarDados = () => {
-    console.log('Iniciando');
-
-    setData(CarrosDb);
+    setData(pegarCarros());
     setLoading(false);
   };
 
@@ -40,10 +48,23 @@ const App = props => {
 
   const jsxCarros = () => (
     <View>
-      <TextInput value={q} onChangeText={setQ} />
-      <ScrollView style={styles.container}>{jsxLista()}</ScrollView>
+      <TextInput value={q} onChangeText={setQ} placeholder="Pesquise" style={styles.TextInput} />
+      {/* <ScrollView style={styles.container}>{jsxLista()}</ScrollView> */}
+      <FlatList data={dataFiltrado} renderItem={Item} />
     </View>
   );
+
+  const Item = props => {
+    console.log(props)
+    return (
+      <CarroItem
+        id={props.index}
+        foto={props.item.foto}
+        titulo={props.item.modelo + '/' + props.item.ano}
+        onPress={abrirDetalhe}
+      />
+    );
+  };
 
   const jsxLoading = () => (
     <View>
@@ -52,22 +73,20 @@ const App = props => {
   );
 
   let dataFiltrado;
-  if(q == ""){
-    dataFiltrado = data
-  }else{
-    dataFiltrado = []
-    let q2 = q.toUpperCase()
-    for (let key in data){
-      let texto = `${data[key].modelo} ${data[key].ano}`
-      if(texto.toUpperCase().indexOf(q2) >= 0){
-        dataFiltrado.push(data[key])
+  if (q == '') {
+    dataFiltrado = data;
+  } else {
+    dataFiltrado = [];
+    let q2 = q.toUpperCase();
+    for (let key in data) {
+      let texto = `${data[key].modelo} ${data[key].ano}`;
+      if (texto.toUpperCase().indexOf(q2) >= 0) {
+        dataFiltrado.push(data[key]);
       }
     }
-  } 
+  }
 
-  //
-
-  const jsxLista = () => {
+  /* const jsxLista = () => {
 
     let tmp = [];
     for (let key in dataFiltrado) {
@@ -81,7 +100,7 @@ const App = props => {
         />)
     }
     return tmp;
-  }
+  } */
 
   return loading ? jsxLoading() : jsxCarros();
 };

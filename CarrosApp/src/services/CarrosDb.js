@@ -1,6 +1,6 @@
 let carros = [
   {
-    foto: require('../assets/carro.png'),
+    foto: require('../assets/carro1.jpg'),
     modelo: 'VW Saveiro',
     ano: 2015,
   },
@@ -15,7 +15,7 @@ let carros = [
     ano: 2017,
   },
   {
-    foto: require('../assets/carro.png'),
+    foto: require('../assets/carro1.jpg'),
     modelo: 'Fiat Argo',
     ano: 2019,
   },
@@ -35,7 +35,7 @@ let carros = [
     ano: 2017,
   },
   {
-    foto: require('../assets/carro.png'),
+    foto: require('../assets/carro1.jpg'),
     modelo: 'Fiat Argo',
     ano: 2019,
   },
@@ -55,7 +55,7 @@ let carros = [
     ano: 2017,
   },
   {
-    foto: require('../assets/carro.png'),
+    foto: require('../assets/carro1.jpg'),
     modelo: 'Fiat Argo',
     ano: 2019,
   },
@@ -75,7 +75,7 @@ let carros = [
     ano: 2017,
   },
   {
-    foto: require('../assets/carro.png'),
+    foto: require('../assets/carro1.jpg'),
     modelo: 'Fiat Argo',
     ano: 2019,
   },
