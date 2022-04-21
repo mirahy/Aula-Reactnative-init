@@ -26,7 +26,7 @@ export default props => {
         </View>
         <Text style={styles.texto}>Modelo: {carro.modelo}</Text>
         <Text style={styles.texto}>Ano: { carro.ano}</Text>
-        <View style={styles.conatinerBotao}>
+        <View style={styles.containerBotao}>
           <Button
           onPress={acaoVoltar}
           title="Voltar"
