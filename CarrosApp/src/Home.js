@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   TextInput,
   View,
   ActivityIndicator,
   FlatList,
   Text,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CarroItem from './CarroItem';
 import { pegarCarros } from './services/CarrosServices';
