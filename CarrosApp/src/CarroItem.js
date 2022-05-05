@@ -8,6 +8,8 @@ import {
   View,
   TouchableHighlight} from 'react-native';
 
+  import { BASE_FOTO } from './services/api';
+
 const alt = 40;
 
 const styles = StyleSheet.create({
@@ -32,14 +34,23 @@ const styles = StyleSheet.create({
   }
 })
 
-const CarroItem = props => (
-  
-  <TouchableHighlight
+const CarroItem = props => {
+
+  let foto = props.foto
+
+  if(foto === null){
+    foto = require('../assets/carro1.jpg')
+  }else{
+    foto = {uri: BASE_FOTO + foto}
+  }
+
+  return(
+    <TouchableHighlight
     onPress={() => props.onPress(props.id)}>
   <View style={styles.container}>
     <Image
       style={styles.foto}
-      source={props.foto}
+      source={foto}
     />
     <Text
       style={styles.titulo}
@@ -47,6 +58,10 @@ const CarroItem = props => (
     >{props.titulo} </Text>
   </View>
   </TouchableHighlight>
-)
+  )
+}
+  
+  
+
 
 export default CarroItem;

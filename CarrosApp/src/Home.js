@@ -7,7 +7,6 @@ import {
   FlatList,
   Text,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CarroItem from './CarroItem';
 import { pegarCarros } from './services/CarrosServices';
@@ -37,9 +36,15 @@ const App = props => {
   });
 
   const carregarDados = () => {
-    setData(pegarCarros());
-    setLoading(false);
-  };
+    console.log('Carregardados')
+    // setData(pegarCarros());
+    // setLoading(false);
+    pegarCarros()
+    .then(dados => {
+      setData(dados)
+      setLoading(false)
+    })
+  }
 
   const abrirDetalhe = id => {
     //alert(id)
@@ -59,7 +64,7 @@ const App = props => {
     return (
       <CarroItem
         id={props.index}
-        foto={props.item.foto}
+        foto={props.item.figura}
         titulo={props.item.modelo + '/' + props.item.ano}
         onPress={abrirDetalhe}
       />
