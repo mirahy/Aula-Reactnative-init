@@ -1,37 +1,39 @@
 import React from 'react';
-import {Text, StyleSheet, ScrollView, Button, View} from 'react-native';
+import { Text, ScrollView, View, Button, StyleSheet } from 'react-native';
 
 export default props => {
-  const carro = props.route.params.carro;
+  let carro = props.route.params.carro
 
-  const acaoVoltar = () => {
-    props.navigation.goBack();
-  };
+  const botaoVoltar = () => {
+    props.navigation.goBack()
+  }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.texto}>Modelo: {carro.modelo}</Text>
-      <Text style={styles.texto}>Ano: {carro.ano}</Text>
-      <View style={styles.containerBotao}>
-        <Button onPress={acaoVoltar} title="Voltar" />
+    <ScrollView>
+      <Text style={styles.texto}>{carro.modelo}</Text>
+      <Text style={styles.texto}>{carro.ano}</Text>
+
+      <View style={styles.botaoContainer}>
+        <Button
+          style={styles.botao}
+          title="Voltar"
+          onPress={botaoVoltar}
+        />
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
-let styles = StyleSheet.create({
-  container: {},
+const styles = StyleSheet.create({
   texto: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: 'black',
+    fontSize: 20,
+    textAlign: 'center'
   },
-  containerBotao: {
+
+  botaoContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 10,
+    marginVertical: 10
   },
-  botao: {
-    flex: 1,
-  },
-});
+  botao: {}
+})

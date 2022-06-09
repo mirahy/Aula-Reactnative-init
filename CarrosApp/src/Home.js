@@ -1,113 +1,93 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  ActivityIndicator,
-  FlatList,
-  Text,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {StyleSheet, FlatList,
+  View, TextInput, ActivityIndicator} from 'react-native';
 
 import CarroItem from './CarroItem';
-import { pegarCarros } from './services/CarrosServices';
+import { getCarros } from './service/CarroService';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#DDDDDD',
-    padding: 5,
-    
-  },
-  TextInput:
-  {
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: 'white',
-    color: 'black'
+    padding: 5
   }
-});
+})
 
 const App = props => {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-  const [q, setQ] = useState('');
-
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState([])
+  const [q, setQ] = useState('')
+  
   useEffect(() => {
-    setTimeout(carregarDados, 2000);
-  });
+    // setTimeout(carregarDados, 2000)
+    carregarDados()
+  }, [])
 
   const carregarDados = () => {
-    console.log('Carregardados')
-    // setData(pegarCarros());
-    // setLoading(false);
-    pegarCarros()
-    .then(dados => {
-      setData(dados)
+    console.log('carregarDados')
+
+    getCarros()
+    .then(carros => {
+      setData(carros)
       setLoading(false)
     })
   }
 
-  const abrirDetalhe = id => {
+  const editarCarro = (id) => {
     //alert(id)
-    props.navigation.navigate('CarroDetalhe', {id});
-  };
+    props.navigation.navigate('CarroEditar', {id})
+  }
 
   const jsxCarros = () => (
-    <View>
-      <TextInput value={q} onChangeText={setQ} placeholder="Pesquise" style={styles.TextInput} />
-      {/* <ScrollView style={styles.container}>{jsxLista()}</ScrollView> */}
-      <FlatList data={dataFiltrado} renderItem={Item} />
+    <View flex={1}>
+      <TextInput
+        value={q}
+        onChangeText={setQ}
+        placeholder="Pesquisar"
+      />
+      <FlatList style={styles.container}
+        data={dataFiltrado}
+        renderItem={Item}
+      />
     </View>
-  );
+  )
 
-  const Item = props => {
-    console.log(props)
+  const Item = propsItem => {
+    // console.log(propsItem)
+    
     return (
       <CarroItem
-        id={props.index}
-        foto={props.item.figura}
-        titulo={props.item.modelo + '/' + props.item.ano}
-        onPress={abrirDetalhe}
-      />
-    );
-  };
+        id={propsItem.item.id}
+        foto={propsItem.item.figura}
+        titulo={propsItem.item.modelo + "/" + propsItem.item.ano}
+        onPress={editarCarro} />
+    )
+  }
 
   const jsxLoading = () => (
     <View>
       <ActivityIndicator size="large" />
     </View>
-  );
+  )
 
   let dataFiltrado;
   if (q == '') {
-    dataFiltrado = data;
+    dataFiltrado = data
   } else {
-    dataFiltrado = [];
-    let q2 = q.toUpperCase();
+    dataFiltrado = []
+    let q2 = q.toUpperCase()
     for (let key in data) {
-      let texto = `${data[key].modelo} ${data[key].ano}`;
+      let texto = `${data[key].modelo} ${data[key].ano}`
       if (texto.toUpperCase().indexOf(q2) >= 0) {
-        dataFiltrado.push(data[key]);
+        dataFiltrado.push(data[key])
       }
     }
   }
 
-  /* const jsxLista = () => {
-
-    let tmp = [];
-    for (let key in dataFiltrado) {
-      let carroDb = dataFiltrado[key];
-      tmp.push(
-        <CarroItem
-          foto={carroDb.foto}
-          titulo={carroDb.modelo + '/' + carroDb.ano}
-          onPress={abrirDetalhe}
-          key={key}
-        />)
-    }
-    return tmp;
-  } */
-
-  return loading ? jsxLoading() : jsxCarros();
-};
+  if (loading) {
+    return jsxLoading()
+  } else {
+    return jsxCarros()
+  }
+}
 
 export default App;

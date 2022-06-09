@@ -1,28 +1,43 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, Image} from 'react-native';
+import { ScrollView, View, Image, StyleSheet } from 'react-native';
+import { BASE_FOTO } from './service/api';
 
 export default props => {
-  const carro = props.route.params.carro;
+  let carro = props.route.params.carro
+
+  /*let foto
+  if (props.foto === null) {
+    foto = require('../assets/carro.png')
+  } else {
+    foto = { uri: BASE_FOTO + props.foto }
+  }*/
+  let foto = (carro.figura === null) ?
+    require('../assets/carro.png') :
+    { uri: BASE_FOTO + carro.figura };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.containerFoto}>
-        <Image source={carro.foto} style={styles.foto} />
+    <ScrollView>
+      <View style={styles.fotoContainer}>
+        <Image
+          style={styles.foto}
+          source={foto}
+        />
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
-let styles = StyleSheet.create({
-  container: {},
-  containerFoto: {
-    backgroundColor: 'white',
+const styles = StyleSheet.create({
+
+  fotoContainer: {
+    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 10
   },
   foto: {
     flex: 1,
     aspectRatio: 1,
-    resizeMode: 'contain',
-  },
-});
+    resizeMode: 'contain'
+  }
+
+})

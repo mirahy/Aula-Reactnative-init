@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './Home';
 import CarroDetalheScreen from './CarroDetalhe';
+import CarroEditarScreen from './CarroEditar';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +13,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="CarroDetalhe" component={CarroDetalheScreen} />
+        <Stack.Screen name="CarroDetalhe"
+          component={CarroDetalheScreen} />
+          <Stack.Screen name="CarroEditar"
+          component={CarroEditarScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

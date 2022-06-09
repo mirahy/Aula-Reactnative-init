@@ -1,47 +1,55 @@
-import React, {useEffect} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, {useEffect, useState} from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {pegarCarro} from './services/CarrosServices';
+import { pegarCarro } from './service/CarroService'
 
-import CarroTexto from './CarroTexto';
-import CarroFoto from './CarroFoto';
+import CarroTexto from './CarroTexto'
+import CarroFoto from './CarroFoto'
 
 const Tab = createBottomTabNavigator();
 
 export default props => {
-  const id = props.route.params.id;
-  const carro = pegarCarro(id);
+  let id = props.route.params.id
+
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState()
 
   useEffect(() => {
-    props.navigation.setOptions({title: carro.modelo});
-  });
+    console.log('carregarDados', id)
+    carregarDados()
 
-  // screenOptions={{ headerShown: false}}
-  return (
+    // props.navigation.setOptions({ title: carro.modelo })
+
+  }, [])
+
+  const carregarDados = () => {
+    pegarCarro(id)
+    .then(carro => {
+      setData(carro)
+      setLoading(false)
+    })
+  }
+
+  const jsxLoading = () => (
+    <View>
+      <ActivityIndicator size="large" />
+    </View>
+  )
+  
+  const jsxTela = () => (
     <Tab.Navigator
-    
-    screenOptions={({ route }) => ({
-      headerShown: false,
-      tabBarIcon: ({ color, size }) => {
-        let iconName ;
-
-        if (route.name === 'Texto') {
-          iconName = 'text'
-        } else if (route.name === 'Foto') {
-          iconName = 'car'
-        }
-
-        // You can return any component that you like here!
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: 'tomato',
-      tabBarInactiveTintColor: 'gray',
-    })}
+      screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen name="Texto" component={CarroTexto} initialParams={{carro}} />
-      <Tab.Screen name="Foto" component={CarroFoto} initialParams={{carro}} />
+      <Tab.Screen name="Texto" component={CarroTexto}
+        initialParams={{carro:data}}
+      />
+      <Tab.Screen name="Foto" component={CarroFoto}
+        initialParams={{carro:data}}
+      />
     </Tab.Navigator>
-  );
-};
+  )
+
+  return loading ? jsxLoading() : jsxTela();
+}

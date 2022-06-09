@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {Text, StyleSheet, ScrollView, View, Image, Button} from 'react-native';
 
-import {pegarCarro} from './services/CarrosServices'
+import {pegarCarro} from './service/CarrosServices'
 
 
 /* export default props => <Text style={styles.container}> 
